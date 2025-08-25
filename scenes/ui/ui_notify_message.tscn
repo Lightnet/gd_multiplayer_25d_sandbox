@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx4ufeg0184tc"]
+
+[ext_resource type="Script" uid="uid://caf7h1cay8342" path="res://scripts/ui/ui_notify_message.gd" id="1_mkbfv"]
+[ext_resource type="Texture2D" uid="uid://dp3eevnebp0kb" path="res://icon.svg" id="1_oiv38"]
+
+[node name="UINotifyMessage" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mkbfv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_oiv38")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "None"
+
+[node name="SplitContainer" type="SplitContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="btn_close" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/btn_close" to="." method="_on_btn_close_pressed"]

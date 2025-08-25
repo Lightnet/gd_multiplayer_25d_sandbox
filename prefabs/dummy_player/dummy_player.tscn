@@ -1,0 +1,195 @@
+[gd_scene load_steps=21 format=3 uid="uid://b4kuq3prfgpe2"]
+
+[ext_resource type="Script" uid="uid://cijumqv8ebj5m" path="res://prefabs/dummy_player/dummy_player.gd" id="1_hyvas"]
+[ext_resource type="Script" uid="uid://br7shwa55u1ek" path="res://inventory/inventory_data.gd" id="2_8jn72"]
+[ext_resource type="Texture2D" uid="uid://dq0j6qp35isee" path="res://assets/player/white_simple_character_front01.png" id="2_nw8py"]
+[ext_resource type="Texture2D" uid="uid://ddgn2xtvuuiqb" path="res://assets/player/white_simple_character_back01.png" id="3_2hc0f"]
+[ext_resource type="Script" uid="uid://h1s642kf3ghg" path="res://inventory/slot_data.gd" id="3_g8r66"]
+[ext_resource type="Script" uid="uid://bk2fww1emg1l0" path="res://inventory/inventory_data_equip.gd" id="4_7mfdk"]
+[ext_resource type="Resource" uid="uid://cmmi21ih6kcoe" path="res://item/items/apple.tres" id="4_g8r66"]
+[ext_resource type="Texture2D" uid="uid://cx31o5bec8u6y" path="res://assets/player/white_simple_character_side_left01.png" id="4_mw41w"]
+
+[sub_resource type="Resource" id="Resource_7mfdk"]
+script = ExtResource("3_g8r66")
+item_data = ExtResource("4_g8r66")
+quantity = 1
+metadata/_custom_type_script = "uid://h1s642kf3ghg"
+
+[sub_resource type="Resource" id="Resource_1spnq"]
+script = ExtResource("2_8jn72")
+slot_datas = Array[ExtResource("3_g8r66")]([SubResource("Resource_7mfdk"), null, null, null, null, null, null, null, null, null])
+metadata/_custom_type_script = "uid://br7shwa55u1ek"
+
+[sub_resource type="Resource" id="Resource_tb0y7"]
+script = ExtResource("4_7mfdk")
+slot_datas = Array[ExtResource("3_g8r66")]([null])
+metadata/_custom_type_script = "uid://bk2fww1emg1l0"
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2hc0f"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimationPlayer:current_animation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3iy47"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_soqow"]
+
+[sub_resource type="Animation" id="Animation_8jn72"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_nw8py")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_g8r66"]
+resource_name = "back"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_2hc0f")]
+}
+
+[sub_resource type="Animation" id="Animation_1tpni"]
+resource_name = "front"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_nw8py")]
+}
+
+[sub_resource type="Animation" id="Animation_7mfdk"]
+resource_name = "left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_mw41w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2hc0f"]
+resource_name = "right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_mw41w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1spnq"]
+_data = {
+&"RESET": SubResource("Animation_8jn72"),
+&"back": SubResource("Animation_g8r66"),
+&"front": SubResource("Animation_1tpni"),
+&"left": SubResource("Animation_7mfdk"),
+&"right": SubResource("Animation_2hc0f")
+}
+
+[node name="DummyPlayer" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_hyvas")
+inventory_data = SubResource("Resource_1spnq")
+equip_inventory_data = SubResource("Resource_tb0y7")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_2hc0f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_3iy47")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_soqow")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 3)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0.963226, 0)
+flip_h = true
+texture_filter = 0
+texture = ExtResource("2_nw8py")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1spnq")
+}
+
+[node name="AnimationState" type="Node" parent="."]

@@ -1,0 +1,264 @@
+[gd_scene load_steps=12 format=3 uid="uid://dyqxmfthcm0s2"]
+
+[ext_resource type="Texture2D" uid="uid://ci6t14o36seuh" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_shr8v"]
+[ext_resource type="Script" uid="uid://dqbeletqj8m1e" path="res://scripts/ui/btn_notify_test.gd" id="3_v4vkh"]
+[ext_resource type="Script" uid="uid://cwu4ys3vpu1bw" path="res://scripts/network/ui_multiplayer.gd" id="4_kvkdn"]
+[ext_resource type="Script" uid="uid://d3k4dxlbdb31i" path="res://scripts/ui/ui_player_spawn2d.gd" id="5_mxd1c"]
+[ext_resource type="Script" uid="uid://bdporjy4qtvti" path="res://scripts/ui/ui_notify.gd" id="6_d5oea"]
+[ext_resource type="Script" uid="uid://c612kejvugvtx" path="res://scripts/ui/label_mouse_mode.gd" id="6_shr8v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_soqow"]
+albedo_texture = ExtResource("1_shr8v")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vc4nx"]
+albedo_texture = ExtResource("1_shr8v")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vgxje"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_i1fhm"]
+sky_material = SubResource("ProceduralSkyMaterial_vgxje")
+
+[sub_resource type="Environment" id="Environment_u7d8s"]
+background_mode = 2
+sky = SubResource("Sky_i1fhm")
+tonemap_mode = 2
+
+[node name="GameController" type="Node"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../World3D")
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="Level" type="Node3D" parent="World3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="World3D/Level"]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World3D/Level/CSGCombiner3D"]
+size = Vector3(16, 1, 16)
+material = SubResource("StandardMaterial3D_soqow")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World3D/Level/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2)
+material = SubResource("StandardMaterial3D_vc4nx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World3D/Level"]
+environment = SubResource("Environment_u7d8s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World3D/Level"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="World3D/Level"]
+transform = Transform3D(1, 0, 0, 0, 0.77587, 0.630893, 0, -0.630893, 0.77587, 0, 5.05625, 4.29321)
+
+[node name="SpawnPoint" type="Node3D" parent="World3D/Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.6, 0)
+
+[node name="Marker3D" type="Marker3D" parent="World3D/Level/SpawnPoint"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DebugList" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 118.0
+offset_bottom = 163.0
+
+[node name="HBC_NetworkStatus" type="HBoxContainer" parent="CanvasLayer/Control/DebugList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DebugList/HBC_NetworkStatus"]
+layout_mode = 2
+text = "Network:"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/DebugList/HBC_NetworkStatus"]
+layout_mode = 2
+text = "None"
+
+[node name="HBC_PeerID" type="HBoxContainer" parent="CanvasLayer/Control/DebugList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DebugList/HBC_PeerID"]
+layout_mode = 2
+text = "Peer ID:"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/DebugList/HBC_PeerID"]
+layout_mode = 2
+text = "0"
+
+[node name="HBC_Player" type="HBoxContainer" parent="CanvasLayer/Control/DebugList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DebugList/HBC_Player"]
+layout_mode = 2
+text = "Player:"
+
+[node name="Label_Name" type="Label" parent="CanvasLayer/Control/DebugList/HBC_Player"]
+layout_mode = 2
+text = "Name"
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/DebugList"]
+layout_mode = 2
+text = "Test Notify"
+script = ExtResource("3_v4vkh")
+
+[node name="UIMultiplayer" type="CenterContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_kvkdn")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/UIMultiplayer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Multiplayer"
+horizontal_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(133.15, 0)
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "Address"
+alignment = 1
+
+[node name="LineEdit2" type="LineEdit" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "7777"
+placeholder_text = "Port"
+alignment = 1
+
+[node name="LineEdit_Player" type="LineEdit" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+placeholder_text = "Player Name"
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="btn_host" type="Button" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="btn_join" type="Button" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="btn_settings" type="Button" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Settings"
+
+[node name="SplitContainer" type="SplitContainer" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="btn_exit" type="Button" parent="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = " Exit "
+
+[node name="UIPlayerSpawn" type="CenterContainer" parent="CanvasLayer/Control" node_paths=PackedStringArray("spawn_point")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_mxd1c")
+spawn_point = NodePath("../../../World3D/Level/SpawnPoint")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/UIPlayerSpawn"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/UIPlayerSpawn/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/UIPlayerSpawn/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/UIPlayerSpawn/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/UIPlayerSpawn/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = " Player: "
+
+[node name="Label_player_name" type="Label" parent="CanvasLayer/Control/UIPlayerSpawn/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = " Unknown "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/UIPlayerSpawn/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="btn_spawn" type="Button" parent="CanvasLayer/Control/UIPlayerSpawn/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = " Spawn "
+
+[node name="Notify_Messages" type="VBoxContainer" parent="CanvasLayer" groups=["notify"]]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -261.0
+offset_bottom = 648.0
+grow_horizontal = 0
+script = ExtResource("6_d5oea")
+
+[node name="Label_Mouse_Mode" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Mouse Mode: Visible"
+script = ExtResource("6_shr8v")
+
+[connection signal="pressed" from="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/btn_host" to="CanvasLayer/Control/UIMultiplayer" method="_on_btn_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/btn_join" to="CanvasLayer/Control/UIMultiplayer" method="_on_btn_join_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/btn_settings" to="CanvasLayer/Control/UIMultiplayer" method="_on_btn_settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/UIMultiplayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/btn_exit" to="CanvasLayer/Control/UIMultiplayer" method="_on_btn_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/UIPlayerSpawn/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/btn_spawn" to="CanvasLayer/Control/UIPlayerSpawn" method="_on_btn_spawn_pressed"]
