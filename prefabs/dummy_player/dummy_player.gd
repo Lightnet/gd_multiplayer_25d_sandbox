@@ -56,3 +56,9 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+# drop item forward position
+func get_drop_position() -> Vector3:
+	var direction  = -camera_3d.global_transform.basis.z
+	return camera_3d.global_position + direction

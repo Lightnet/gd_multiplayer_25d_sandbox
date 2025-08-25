@@ -10,10 +10,29 @@
   Just working simple version. To create farm, town, npc and other things for relax.
 
 # Features:
-- Host
-- Join
-- Spawn
-- 
+- [x] Inventory System (WIP)
+	- [x] Drop Item
+-  [x] Player
+-  [x] Item props
+
+- [ ] Network
+	- [x] Host
+	- [x] Join
+	- [x] Spawn
+	- [ ] Disconnect
+	- [ ] Inventory System (WIP)
+		- [ ] Drop Item
+  Note this is work in progress.
+
+## Farm:
+- crops
+- soil
+- water
+
+## Buildings:
+- create blocks
+- delete blocks
+
 
 # Controls:
 - W,A,S,D = move

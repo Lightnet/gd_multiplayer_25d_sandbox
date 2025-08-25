@@ -1,5 +1,7 @@
 extends Node
 
+const PICKUP = preload("res://item/pickUp/pick_up.tscn")
+
 var target:Vector3
 var count:int = 100
 var counter_unit:int = 100
@@ -92,7 +94,9 @@ func connect_player():
 	if player and inventory_interface and hot_bar_inventory:
 		#print("player: ", player)
 		player.toggle_inventory.connect(toggle_inventory_interface)
+		
 		#print("player.inventory_data:", player.inventory_data)
+		inventory_interface.drop_slot_data.connect(_on_inventory_interface_drop_slot_data)
 		inventory_interface.set_player_inventory_data(player.inventory_data)
 		# inventory
 		inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
@@ -130,6 +134,14 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 		inventory_interface.set_external_inventory(external_inventory_owner)
 	else:
 		inventory_interface.clear_external_inventory()
+
+func _on_inventory_interface_drop_slot_data(slot_data: SlotData) -> void:
+	var pick_up = PICKUP.instantiate()
+	pick_up.slot_data = slot_data
+	#pick_up.position = Vector3.UP
+	pick_up.position = player.get_drop_position()
+	get_tree().current_scene.add_child(pick_up)
+	#pass
 
 
 #================================================
