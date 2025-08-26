@@ -1,5 +1,5 @@
 extends Control
-
+# https://www.youtube.com/watch?v=V79YabQZC1s
 signal drop_slot_data(slot_data:SlotData)
 signal force_close
 var grabbed_slot_data: SlotData
@@ -9,6 +9,10 @@ var external_inventory_owner
 @onready var grabbed_slot = $GrabbedSlot
 @onready var external_inventory = $ExternalInventory
 @onready var equip_inventory = $EquipInventory
+
+func _ready() -> void:
+	visibility_changed.connect(_on_visibility_changed)
+	#pass
 
 func _physics_process(_delta):
 	if grabbed_slot.visible:
@@ -71,6 +75,7 @@ func update_grabbed_slot()->void:
 	else:
 		grabbed_slot.hide()
 
+# connect listen event
 func _on_gui_input(event) -> void:
 	#print("event???")
 	if event is InputEventMouseButton \

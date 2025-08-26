@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4kuq3prfgpe2"]
+[gd_scene load_steps=22 format=3 uid="uid://b4kuq3prfgpe2"]
 
 [ext_resource type="Script" uid="uid://cijumqv8ebj5m" path="res://prefabs/dummy_player/dummy_player.gd" id="1_hyvas"]
 [ext_resource type="Script" uid="uid://br7shwa55u1ek" path="res://inventory/inventory_data.gd" id="2_8jn72"]
@@ -160,6 +160,9 @@ _data = {
 &"right": SubResource("Animation_2hc0f")
 }
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_g8r66"]
+size = Vector2(1, 1)
+
 [node name="DummyPlayer" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_hyvas")
@@ -193,3 +196,10 @@ libraries = {
 }
 
 [node name="AnimationState" type="Node" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+target_position = Vector3(0, -2, 0)
+
+[node name="place_holder_ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_g8r66")
