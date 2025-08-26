@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		face_direction = direction
-		print("face_direction:", face_direction)
+		#print("face_direction:", face_direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
@@ -68,25 +68,28 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func update_face_place():
-	if face_direction.length()>0:
-		#global_position + ray_cast_3d.global_position
-		var normal_face = global_position + face_direction
-		normal_face.y = normal_face.y + 1.0
-		ray_cast_3d.global_position = normal_face
+	if face_direction.length() > 0:
+		# Normalize the face direction
+		face_direction = face_direction.normalized()
+		# Position the raycast one grid cell ahead in the facing direction
+		var ray_start = global_position + face_direction * 1.0  # Adjust distance as needed
+		ray_start.y += 1.0  # Raise the raycast start to avoid starting inside the floor
+		ray_cast_3d.global_position = ray_start
+		ray_cast_3d.target_position = Vector3(0, -2.0, 0)  # Cast downward to detect floor
 		
-		
-		pass
-	#pass
-
 func detect_floor_place():
 	if ray_cast_3d.is_colliding():
 		var pos = ray_cast_3d.get_collision_point()
-		print("pos:", pos)
-		pos.y = pos.y + 0.01
-		place_holder_ground.global_position = pos
-		
-	#pass
-
+		# Snap to the nearest grid cell center (assuming 1x1 grid)
+		var grid_pos = Vector3(
+			floor(pos.x), #0.5  # Center of the grid cell
+			pos.y + 0.01,        # Slightly above the floor
+			floor(pos.z) #+ 0.5   # Center of the grid cell
+		)
+		place_holder_ground.global_position = grid_pos
+	else:
+		# Hide placeholder or set to a default position if no collision
+		place_holder_ground.global_position = global_position + face_direction * 1.0
 
 # drop item forward position
 func get_drop_position() -> Vector3:

@@ -182,7 +182,7 @@ visible = false
 mesh = SubResource("CapsuleMesh_soqow")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 3)
+transform = Transform3D(1, 0, 0, 0, 0.774768, 0.632246, 0, -0.632246, 0.774768, 0, 3.41279, 3.14889)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0.963226, 0)
